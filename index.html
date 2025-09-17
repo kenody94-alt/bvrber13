@@ -1,0 +1,115 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Запись — Мини-приложение</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app" class="container">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/logo.svg" alt="logo" class="logo">
+        <div class="brand-text">
+          <div class="title">Business HQ</div>
+          <div class="subtitle">Запись клиентов</div>
+        </div>
+      </div>
+      <nav class="nav">
+        <button id="btn-home" class="nav-btn active">Главная</button>
+        <button id="btn-book" class="nav-btn">Записаться</button>
+        <button id="btn-my" class="nav-btn">Мои записи</button>
+        <button id="btn-profile" class="nav-btn">Профиль</button>
+      </nav>
+    </header>
+
+    <main id="main" class="main">
+      <!-- Views will be injected here by app.js -->
+    </main>
+
+    <footer class="footer">
+      <div>© Business HQ — Мини-приложение</div>
+      <div class="telegram-info" id="tg-info">Telegram: Не подключено</div>
+    </footer>
+  </div>
+
+  <template id="tpl-home">
+    <section class="card hero">
+      <h1>Добро пожаловать в Business HQ</h1>
+      <p>Управляйте записями, быстро назначайте встречи и получайте уведомления через Telegram.</p>
+      <div class="hero-actions">
+        <button id="hero-book" class="primary">Записаться</button>
+        <button id="hero-info" class="secondary">Узнать больше</button>
+      </div>
+    </section>
+    <section class="card features">
+      <h2>Преимущества</h2>
+      <ul class="features-list">
+        <li>Простой интерфейс для клиентов</li>
+        <li>Интеграция с Telegram Web App API</li>
+        <li>Управление записями и профиль клиента</li>
+      </ul>
+    </section>
+  </template>
+
+  <template id="tpl-book">
+    <section class="card">
+      <h2>Новая запись</h2>
+      <form id="form-book" class="form">
+        <label>Услуга
+          <select id="service" required>
+            <option value="">Выберите услугу</option>
+            <option>Консультация — 60 мин</option>
+            <option>Анализ документов — 30 мин</option>
+            <option>VIP встреча — 90 мин</option>
+          </select>
+        </label>
+        <label>Дата
+          <input id="date" type="date" required>
+        </label>
+        <label>Время
+          <input id="time" type="time" required>
+        </label>
+        <label>Комментарий (опционально)
+          <input id="comment" type="text" placeholder="Например: звоните по номеру...">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="primary">Подтвердить запись</button>
+          <button id="cancel-book" type="button" class="secondary">Отмена</button>
+        </div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-my">
+    <section class="card">
+      <h2>Мои записи</h2>
+      <div id="bookings-list"></div>
+    </section>
+  </template>
+
+  <template id="tpl-profile">
+    <section class="card">
+      <h2>Профиль</h2>
+      <form id="form-profile" class="form">
+        <label>ФИО
+          <input id="fullname" type="text" required>
+        </label>
+        <label>Телефон
+          <input id="phone" type="tel" required>
+        </label>
+        <label>E‑mail
+          <input id="email" type="email">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="primary">Сохранить</button>
+        </div>
+      </form>
+    </section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
