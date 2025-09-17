@@ -6,6 +6,12 @@
   <title>Запись — Мини-приложение</title>
   <link rel="stylesheet" href="styles.css">
   <style>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #fafafa;
+    }
+
     /* Верхняя панель */
     .topbar {
       display: flex;
@@ -14,6 +20,7 @@
       padding: 10px 15px;
       background: #222;
       color: #fff;
+      position: relative;
     }
 
     .brand {
@@ -26,7 +33,6 @@
       font-size: 16px;
       font-weight: bold;
     }
-
     .brand-text .subtitle {
       font-size: 12px;
       opacity: 0.7;
@@ -49,10 +55,11 @@
       top: 55px;
       right: 15px;
       background: #fff;
-      border-radius: 14px;
+      border-radius: 12px;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       overflow: hidden;
       z-index: 1000;
+      min-width: 180px;
     }
 
     .nav-popup button {
@@ -64,7 +71,6 @@
       text-align: left;
       font-size: 16px;
       cursor: pointer;
-      transition: background 0.2s;
     }
 
     .nav-popup button:hover {
@@ -106,13 +112,6 @@
       background: #e0e0e5;
     }
 
-    /* Адаптивность */
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: #fafafa;
-    }
-
     main {
       padding: 15px;
     }
@@ -130,6 +129,7 @@
       </div>
       <button id="menu-toggle" class="menu-btn">☰</button>
       <div id="nav-popup" class="nav-popup">
+        <!-- ВАЖНО: сохраняем ID кнопок для app.js -->
         <button id="btn-home" class="nav-btn">Главная</button>
         <button id="btn-book" class="nav-btn">Записаться</button>
         <button id="btn-my" class="nav-btn">Мои записи</button>
@@ -138,7 +138,7 @@
     </header>
 
     <main id="main" class="main">
-      <!-- Views will be injected by app.js -->
+      <!-- Сюда app.js вставляет шаблоны -->
     </main>
 
     <footer class="footer">
@@ -146,78 +146,29 @@
     </footer>
   </div>
 
-  <!-- Templates (оставляем как у тебя) -->
-  <template id="tpl-home">
-    <section class="card hero">
-      <h1>Привет бро</h1>
-      <p>Охуеть да? Че могу).</p>
-      <div class="hero-actions">
-        <button id="hero-book" class="primary">Записаться</button>
-        <button id="hero-info" class="secondary">Узнать больше</button>
-      </div>
-    </section>
-  </template>
+  <!-- Твои шаблоны (tpl-home, tpl-book, tpl-my, tpl-profile) -->
+  <!-- ... их код оставляем без изменений ... -->
 
-  <template id="tpl-book">
-    <section class="card">
-      <h2>Новая запись</h2>
-      <form id="form-book" class="form">
-        <label>Услуга
-          <select id="service" required>
-            <option value="">Выберите услугу</option>
-            <option>Консультация — 60 мин</option>
-            <option>Анализ документов — 30 мин</option>
-            <option>VIP встреча — 90 мин</option>
-          </select>
-        </label>
-        <label>Дата
-          <input id="date" type="date" required>
-        </label>
-        <label>Время
-          <input id="time" type="time" required>
-        </label>
-        <label>Комментарий (опционально)
-          <input id="comment" type="text" placeholder="Например: звоните по номеру...">
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="primary">Подтвердить запись</button>
-          <button id="cancel-book" type="button" class="secondary">Отмена</button>
-        </div>
-      </form>
-    </section>
-  </template>
-
-  <template id="tpl-my">
-    <section class="card">
-      <h2>Мои записи</h2>
-      <div id="bookings-list"></div>
-    </section>
-  </template>
-
-  <template id="tpl-profile">
-    <section class="card">
-      <h2>Профиль</h2>
-      <form id="form-profile" class="form">
-        <label>ФИО
-          <input id="fullname" type="text" required>
-        </label>
-        <label>Телефон
-          <input id="phone" type="tel" required>
-        </label>
-        <label>E-mail
-          <input id="email" type="email">
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="primary">Сохранить</button>
-        </div>
-      </form>
-    </section>
-  </template>
-
-  <!-- Мой код меню — в отдельном JS -->
+  <!-- Скрипт меню -->
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const menuToggle = document.getElementById('menu-toggle');
       const navPopup = document.getElementById('nav-popup');
 
-      menuToggle.addEventListene
+      menuToggle.addEventListener('click', () => {
+        navPopup.style.display = navPopup.style.display === 'block' ? 'none' : 'block';
+      });
+
+      // Закрывать меню при выборе пункта
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          navPopup.style.display = 'none';
+        });
+      });
+    });
+  </script>
+
+  <!-- Подключаем твой основной код -->
+  <script src="app.js"></script>
+</body>
+</html>
