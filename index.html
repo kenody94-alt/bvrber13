@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="ru">
 <head>
@@ -7,7 +6,7 @@
   <title>Запись — Мини-приложение</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* --- Верхняя панель --- */
+    /* Верхняя панель */
     .topbar {
       display: flex;
       justify-content: space-between;
@@ -33,25 +32,25 @@
       opacity: 0.7;
     }
 
-    /* --- Кнопка меню --- */
+    /* Кнопка меню */
     .menu-btn {
-      font-size: 24px;
+      font-size: 28px;
       background: none;
       border: none;
       color: #fff;
       cursor: pointer;
+      outline: none;
     }
 
-    /* --- Всплывающее меню --- */
+    /* Всплывающее меню */
     .nav-popup {
       display: none;
       position: absolute;
       top: 55px;
       right: 15px;
       background: #fff;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      border-radius: 14px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
       overflow: hidden;
       z-index: 1000;
     }
@@ -59,17 +58,166 @@
     .nav-popup button {
       display: block;
       width: 100%;
-      padding: 12px;
+      padding: 14px;
       background: #fff;
       border: none;
       text-align: left;
       font-size: 16px;
       cursor: pointer;
+      transition: background 0.2s;
     }
 
     .nav-popup button:hover {
-      background: #f2f2f2;
+      background: #f2f2f7;
     }
 
-    /* --- Мобильная адаптация --- */
-    bo
+    /* iOS-style кнопки */
+    button.primary {
+      width: 100%;
+      padding: 14px;
+      font-size: 17px;
+      border-radius: 12px;
+      background: #007AFF;
+      color: #fff;
+      border: none;
+      font-weight: 500;
+      box-shadow: 0 2px 6px rgba(0,122,255,0.3);
+      transition: background 0.2s;
+    }
+
+    button.primary:hover {
+      background: #0063D1;
+    }
+
+    button.secondary {
+      width: 100%;
+      padding: 14px;
+      font-size: 17px;
+      border-radius: 12px;
+      background: #f2f2f7;
+      color: #333;
+      border: none;
+      margin-top: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      transition: background 0.2s;
+    }
+
+    button.secondary:hover {
+      background: #e0e0e5;
+    }
+
+    /* Адаптивность */
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #fafafa;
+    }
+
+    main {
+      padding: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="container">
+    <header class="topbar">
+      <div class="brand">
+        <img src="icons/logo.svg" alt="logo" class="logo" style="height:32px;">
+        <div class="brand-text">
+          <div class="title">Afanasyev's Studio</div>
+          <div class="subtitle">Запись клиентов</div>
+        </div>
+      </div>
+      <button id="menu-toggle" class="menu-btn">☰</button>
+      <div id="nav-popup" class="nav-popup">
+        <button id="btn-home" class="nav-btn">Главная</button>
+        <button id="btn-book" class="nav-btn">Записаться</button>
+        <button id="btn-my" class="nav-btn">Мои записи</button>
+        <button id="btn-profile" class="nav-btn">Профиль</button>
+      </div>
+    </header>
+
+    <main id="main" class="main">
+      <!-- Views will be injected by app.js -->
+    </main>
+
+    <footer class="footer">
+      <div>© STUDIO FOR MEN</div>
+    </footer>
+  </div>
+
+  <!-- Templates (оставляем как у тебя) -->
+  <template id="tpl-home">
+    <section class="card hero">
+      <h1>Привет бро</h1>
+      <p>Охуеть да? Че могу).</p>
+      <div class="hero-actions">
+        <button id="hero-book" class="primary">Записаться</button>
+        <button id="hero-info" class="secondary">Узнать больше</button>
+      </div>
+    </section>
+  </template>
+
+  <template id="tpl-book">
+    <section class="card">
+      <h2>Новая запись</h2>
+      <form id="form-book" class="form">
+        <label>Услуга
+          <select id="service" required>
+            <option value="">Выберите услугу</option>
+            <option>Консультация — 60 мин</option>
+            <option>Анализ документов — 30 мин</option>
+            <option>VIP встреча — 90 мин</option>
+          </select>
+        </label>
+        <label>Дата
+          <input id="date" type="date" required>
+        </label>
+        <label>Время
+          <input id="time" type="time" required>
+        </label>
+        <label>Комментарий (опционально)
+          <input id="comment" type="text" placeholder="Например: звоните по номеру...">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="primary">Подтвердить запись</button>
+          <button id="cancel-book" type="button" class="secondary">Отмена</button>
+        </div>
+      </form>
+    </section>
+  </template>
+
+  <template id="tpl-my">
+    <section class="card">
+      <h2>Мои записи</h2>
+      <div id="bookings-list"></div>
+    </section>
+  </template>
+
+  <template id="tpl-profile">
+    <section class="card">
+      <h2>Профиль</h2>
+      <form id="form-profile" class="form">
+        <label>ФИО
+          <input id="fullname" type="text" required>
+        </label>
+        <label>Телефон
+          <input id="phone" type="tel" required>
+        </label>
+        <label>E-mail
+          <input id="email" type="email">
+        </label>
+        <div class="form-actions">
+          <button type="submit" class="primary">Сохранить</button>
+        </div>
+      </form>
+    </section>
+  </template>
+
+  <!-- Мой код меню — в отдельном JS -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const menuToggle = document.getElementById('menu-toggle');
+      const navPopup = document.getElementById('nav-popup');
+
+      menuToggle.addEventListene
