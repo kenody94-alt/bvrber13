@@ -38,22 +38,32 @@
       opacity: 0.7;
     }
 
-    /* Кнопка меню */
-    .menu-btn {
-      font-size: 28px;
-      background: none;
-      border: none;
-      color: #fff;
-      cursor: pointer;
-      outline: none;
-    }
+   function initUI(){
+  // кнопки меню с закрытием popup
+  el('btn-home').addEventListener('click', ()=>{ navigateTo('tpl-home'); closeMenu() })
+  el('btn-book').addEventListener('click', ()=>{ navigateTo('tpl-book'); closeMenu() })
+  el('btn-my').addEventListener('click', ()=>{ navigateTo('tpl-my'); closeMenu() })
+  el('btn-profile').addEventListener('click', ()=>{ navigateTo('tpl-profile'); closeMenu() })
 
-    /* Всплывающее меню */
-    .nav-popup {
-      display: none;
-      position: absolute;
-      top: 55px;
-      right: 15px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 4px 20px rgba(0,0
+  navigateTo('tpl-home')
+
+  const infoEl = el('tg-info')
+  if(infoEl){
+    if(TG){
+      infoEl.textContent = 'Telegram: подключено'
+      try{
+        const button = TG.MainButton
+        button.setText('Записаться')
+        button.show()
+        button.onClick(()=>navigateTo('tpl-book'))
+      }catch(e){ console.warn('TG MainButton not available', e) }
+    }else{
+      infoEl.textContent = 'Telegram: не подключено — запускайте внутри Telegram'
+    }
+  }
+}
+
+function closeMenu(){
+  const navPopup = el('nav-popup')
+  if(navPopup) navPopup.style.display = 'none'
+}
