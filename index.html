@@ -160,13 +160,13 @@
       });
 
       // Закрывать меню при выборе пункта
-      document.querySelectorAll('.nav-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          navPopup.style.display = 'none';
-        });
-      });
-    });
-  </script>
+     document.querySelectorAll('.nav-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // закрываем меню
+    navPopup.style.display = 'none';
+    // НЕ мешаем app.js обработчикам
+  }, { passive: true });
+});
 
   <!-- Подключаем твой основной код -->
   <script src="app.js"></script>
