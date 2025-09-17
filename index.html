@@ -3,113 +3,73 @@
 <html lang="ru">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <title>Запись — Мини-приложение</title>
   <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div id="app" class="container">
-    <header class="topbar">
-      <div class="brand">
-        <img src="icons/logo.svg" alt="logo" class="logo">
-        <div class="brand-text">
-          <div class="title">Afanasyev's Studio</div>
-          <div class="subtitle">Запись клиентов</div>
-        </div>
-      </div>
-      <nav class="nav">
-        <button id="btn-home" class="nav-btn active">Главная</button>
-        <button id="btn-book" class="nav-btn">Записаться</button>
-        <button id="btn-my" class="nav-btn">Мои записи</button>
-        <button id="btn-profile" class="nav-btn">Профиль</button>
-      </nav>
-    </header>
+  <style>
+    /* --- Верхняя панель --- */
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 15px;
+      background: #222;
+      color: #fff;
+    }
 
-    <main id="main" class="main">
-      <!-- Views will be injected here by app.js -->
-    </main>
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
 
-    <footer class="footer">
-      <div>© STUDIO FOR MEN</div>
-    
-    </footer>
-  </div>
+    .brand-text .title {
+      font-size: 16px;
+      font-weight: bold;
+    }
 
-  <template id="tpl-home">
-    <section class="card hero">
-      <h1>Привет бро</h1>
-      <p>Охуеть да? Че могу).</p>
-      <div class="hero-actions">
-        <button id="hero-book" class="primary">Записаться</button>
-        <button id="hero-info" class="secondary">Узнать больше</button>
-      </div>
-    </section>
-    <section class="card features">
-      <h2>будем делать бабки</h2>
-      <ul class="features-list">
-        <li>куплю ламбу</li>
-        <li>и большой кошелек</li>
-        <li>Ауф</li>
-      </ul>
-    </section>
-  </template>
+    .brand-text .subtitle {
+      font-size: 12px;
+      opacity: 0.7;
+    }
 
-  <template id="tpl-book">
-    <section class="card">
-      <h2>Новая запись</h2>
-      <form id="form-book" class="form">
-        <label>Услуга
-          <select id="service" required>
-            <option value="">Выберите услугу</option>
-            <option>Консультация — 60 мин</option>
-            <option>Анализ документов — 30 мин</option>
-            <option>VIP встреча — 90 мин</option>
-          </select>
-        </label>
-        <label>Дата
-          <input id="date" type="date" required>
-        </label>
-        <label>Время
-          <input id="time" type="time" required>
-        </label>
-        <label>Комментарий (опционально)
-          <input id="comment" type="text" placeholder="Например: звоните по номеру...">
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="primary">Подтвердить запись</button>
-          <button id="cancel-book" type="button" class="secondary">Отмена</button>
-        </div>
-      </form>
-    </section>
-  </template>
+    /* --- Кнопка меню --- */
+    .menu-btn {
+      font-size: 24px;
+      background: none;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
 
-  <template id="tpl-my">
-    <section class="card">
-      <h2>Мои записи</h2>
-      <div id="bookings-list"></div>
-    </section>
-  </template>
+    /* --- Всплывающее меню --- */
+    .nav-popup {
+      display: none;
+      position: absolute;
+      top: 55px;
+      right: 15px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+      overflow: hidden;
+      z-index: 1000;
+    }
 
-  <template id="tpl-profile">
-    <section class="card">
-      <h2>Профиль</h2>
-      <form id="form-profile" class="form">
-        <label>ФИО
-          <input id="fullname" type="text" required>
-        </label>
-        <label>Телефон
-          <input id="phone" type="tel" required>
-        </label>
-        <label>E‑mail
-          <input id="email" type="email">
-        </label>
-        <div class="form-actions">
-          <button type="submit" class="primary">Сохранить</button>
-        </div>
-      </form>
-    </section>
-  </template>
+    .nav-popup button {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background: #fff;
+      border: none;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+    }
 
-  <script src="app.js"></script>
-</body>
-</html>
+    .nav-popup button:hover {
+      background: #f2f2f2;
+    }
+
+    /* --- Мобильная адаптация --- */
+    bo
